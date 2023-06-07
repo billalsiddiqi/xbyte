@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "Xbyte New-Tab",
+    "version": "1.0",
+    "description": "Xbyte offers you a clean new tab with features like everyday advice, weather, Air Quality, QR Code Generator, and Currency Exchange.",
+    "chrome_url_overrides" : {
+        "newtab": "index.html"
+    },
+    "action": {
+        "default_icon": "assets/x48.png"
+    },
+    "icons": {
+        "16": "assets/x16.png",
+        "32": "assets/x32.png",
+        "48": "assets/x48.png",
+        "128": "assets/x128.png"
+    },
+    "permissions": [ "activeTab" ],
+    "host_permissions": [ "<all_urls>" ]
+  }

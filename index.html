@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400;700&display=swap" rel="stylesheet">
+    <title>xbyte</title>
+</head>
+<body class="w-full font-monda bg-page_bg h-screen relative">
+    <div id="noConnection" class="absolute top-6 left-1/2 -translate-x-1/2 animate-pulse hidden">
+        <svg width="53" height="46" viewBox="0 0 53 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="45.1064" width="7.89362" height="45.6702" rx="3.94681" fill="#E93C3C" fill-opacity="0.3"/>
+          <rect x="33.8298" y="10.1489" width="7.89362" height="35.5213" rx="3.94681" fill="#E93C3C" fill-opacity="0.3"/>
+          <rect x="23" y="18" width="7" height="28" rx="3.5" fill="#E93C3C" fill-opacity="0.3"/>
+          <rect x="11" y="27" width="8" height="19" rx="4" fill="#FF0000" fill-opacity="0.8"/>
+          <rect y="34.3936" width="7.89362" height="11.2766" rx="3.94681" fill="#FF0000" fill-opacity="0.8"/>
+        </svg>  
+    </div>
+    <div>
+        <div id="airQContainer" class="absolute top-8 left-10 hidden">
+            <div><span class="text-4xl 4k:text-6xl mb-1 mr-2"><span id="airQ"></span></span> <span class="text-base 4k:text-lg text-primary_color">AIQ</span></div>
+            <P id="airQDetails" class="text-lg 4k:text-2xl mt-1 font-bold w-32"></P>    
+        </div>
+        <div id="airQLoading" class="absolute top-8 left-10 w-20 h-10 animate-pulse">
+            <div class="space-y-3">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="h-2 bg-black_low_opacity rounded col-span-2"></div>
+                </div>
+                <div class="h-2 bg-black_low_opacity rounded"></div>
+            </div>
+        </div>
+        <div class="flex absolute top-8 right-10"> 
+            <img src="./assets/exchange.png" id="currencyExchange" class="w-8 4k:w-16 mr-2 cursor-pointer" alt="Exchange Icon">
+            <img src="./assets/qr-code.png" id="qrCode" class="w-8 4k:w-16 ml-2 cursor-pointer" alt="QR Code Icon">
+        </div>
+        <div class="absolute bottom-8 left-10 ">
+            <div class="max-w-xs 4k:max-w-xl">
+                <img src="./assets/quotation.png" id="quoteIcon" class="w-7 4k:w-12 py-3 invisible" alt="Quotation Mark">
+                <p  id="advice" class="text-2xl 4k:text-6xl "></p>
+            </div>
+        </div>
+        <div id="quoteLoading" class="absolute bottom-8 left-10 w-48 h-20 animate-pulse">
+            <div class="flex-1 space-y-6 py-1">
+                <div class="h-2 bg-black_low_opacity rounded"></div>
+                <div class="space-y-3">
+                  <div class="grid grid-cols-3 gap-4">
+                    <div class="h-2 bg-black_low_opacity rounded col-span-2"></div>
+                  </div>
+                  <div class="h-2 bg-black_low_opacity rounded"></div>
+                </div>
+            </div>
+        </div>
+        <div id="date" class="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <div><p class="4k:text-4xl"><span id="day"></span> <span class="text-primary_color">/</span> <span id="month"></span> <span class="text-primary_color">/</span> <span id="year"></span></p></div>
+        </div>
+        <div id="weatherContainer" class="absolute bottom-8 right-10 hidden">
+            <img id="weatherIcon"  class="ml-half" alt="Weather Condition Icon">
+            <p id="weather" class="text-4xl 4k:text-6xl my-2"><span id="temp"></span><span class="text-primary_color">°</span></p>
+            <div class="text-lg 4k:text-2xl"><div id="city"></div> <div id="country" class="text-xl 4k:text-3xl font-bold"></div></div>
+        </div>
+        <div id="weatherLoading" class="absolute bottom-8 right-10 w-32 h-16 animate-pulse">
+            <div class="space-y-3">
+                <div class="rounded-full bg-black_low_opacity h-10 w-10 mx-auto"></div>
+                <div class="grid grid-cols-3 gap-4">
+                  <div class="h-2 bg-black_low_opacity rounded col-span-2"></div>
+                </div>
+                <div class="h-2 bg-black_low_opacity rounded"></div>
+            </div>
+        </div>
+    </div>
+    <div id="qrModal" class="absolute bg-overlay flex items-center justify-center w-full h-screen invisible"> 
+        <div class="bg-qr_code flex flex-col justify-around relative items-center rounded-2xl px-8 4k:px-16 py-10 4k:py-14">
+            <div>
+                <img src="./assets/submit.svg" class="w-36 4k:w-80" alt="Submit Illustration">
+                <img src="./assets/close.png" id="qrClose" class="w-3 4k:w-6 cursor-pointer absolute right-4 top-4 4k:right-8 4k:top-8" alt="Close Icon">
+            </div>
+            <div class="w-60 4k:w-80 4k:text-2xl pt-8">
+                <h4>Your are Two step away from generating your QR Code</h4>
+            </div>
+            <div class="flex items-center pt-8">
+                <input id="qrData" type="text" class="h-9 4k:h-14 rounded-l-full px-5 outline-none 4k:text-2xl placeholder:text-sm 4k:placeholder:text-lg" placeholder="Enter you text">
+                <div id="generateQr" class="h-9 w-20 4k:h-14 4k:w-28 bg-primary_color rounded-r-full cursor-pointer flex justify-center items-center">
+                    <img src="./assets/download.png" class="w-5" alt="Generate Icon">
+                </div>    
+            </div>
+        </div>
+    </div>
+    <div id="currencyModal" class="absolute bg-overlay flex items-center justify-center w-full h-screen invisible"> 
+        <div class="bg-qr_code flex flex-col justify-around relative items-center rounded-2xl px-8 py-10 4k:px-12 4k:py-16">
+            <div>
+                <img src="./assets/money.svg" class="w-36 4k:w-64" alt="Submit Illustration">
+                <img src="./assets/close.png" id="currencyClose" class="w-3 4k:w-6 cursor-pointer absolute right-4 top-4 4k:right-8 4k:top-8" alt="Close Icon">
+            </div>
+            <div class="flex items-center pt-10 px-16">
+                <div class="text-left">
+                    <input type="number" id="currencyInputNumber" class="relative w-16 4k:w-24 4k:text-2xl bg-transparent outline-none" value="0" min="0">
+                    <div class="w-full h-0.5 bg-black_low_opacity my-1"></div>
+                    <div>
+                        <p id="currencyResult" class="4k:text-2xl">0</p>
+                    </div>
+                </div>
+                <img src="./assets/exchange_icon.png" class="w-10 4k:w-16" alt="Exchange Icon">
+                <div class="text-right">
+                    <select name="first_currency" id="currencyFirstInputData" class="currencyDropDown bg-transparent outline-none 4k:text-2xl">
+                        <option value="">Select Currency</option>
+                    </select>
+                    <div class="w-full h-0.5 bg-black_low_opacity my-1"></div>
+                    <select name="second_currency" id="currencySecondInputData" class="currencyDropDown bg-transparent outline-none 4k:text-2xl">
+                        <option value="">Select Currency</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button id="convertCurrency" class="w-1/2 text-center rounded-full py-2 4k:py-4 bg-primary_color 4k:text-2xl text-white mt-4 4k:mt-8">Convert</button>
+        </div>
+    </div>
+    <section class="px-10  mx-auto flex flex-col justify-around items-center max-w-screen-2xl h-full">
+        <div class="flex flex-col justify-center items-center my-16 w-full max-w-lg 4k:max-w-3xl">
+            <div class=""><img src="./assets/markX.svg" class="w-10 4k:w-20" alt="The mark of Xbyte Logo"></div>
+            <div class="my-8 w-full flex">
+                <input type="text" id="searchBar" class="h-12 4k:h-16 4k:text-3xl bg-secondary_color bg-opacity-5 rounded-full px-5 outline-none w-full mr-1" placeholder="Search on Google">
+            </div>
+        </div>
+    </section>
+   <div id="notification" class="absolute left-1/2 top-10 -translate-x-1/2 px-10 py-4 rounded-full text-white z-10 invisible">
+        <p id="notificationData"></p>
+   </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
