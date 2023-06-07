@@ -188,8 +188,8 @@ const weather = async function(){
         const data = await response.json()
             temp.innerText = data.current.temp_c
             localStorage.setItem("temp", data.current.temp_c)
-            document.getElementById('weatherIcon').src = data.current.condition.icon
-            localStorage.setItem("weatherIcon", data.current.condition.icon)
+            document.getElementById('weatherIcon').src =`http://${data.current.condition.icon}`
+            localStorage.setItem("weatherIcon", `http://${data.current.condition.icon}`)
             airQ.innerText = data.current.air_quality["us-epa-index"]
             localStorage.setItem("airQ", data.current.air_quality["us-epa-index"])
             const airQNumber = data.current.air_quality["us-epa-index"].toString()
